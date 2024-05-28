@@ -1,22 +1,59 @@
-importar { Terminal } desde '@es-js/terminal'
+class Helado {
+    constructor(tipos, precios, sabores) {
+        this.tipos = tipos;
+        this.precios = precios;
+        this.sabores = sabores;
+    }
 
-asincrono funcion inicio() {
-	Terminal.limpiar()
+    getDatos() {
+        console.log(`TIPOS: ${this.tipos.join(', ')} 
+PRECIO: ${this.precios.join(', ')} 
+SABORES: ${this.sabores.join(', ')}`);
+    }
 
-	Terminal.escribir('Ingresa un valor:')
+    pedirHelado(tipo) {
+        let sabores = [];
+        if (tipo === "una bocha") {
+            let bocha1 = prompt('Ingrese el sabor: ');
+            sabores.push(bocha1);
+        } else if (tipo === "dos bochas") {
+            for (let i = 0; i < 2; i++) {
+                let bocha2 = prompt(`Bochas ${i + 1}: `);
+                sabores.push(bocha2);
+            }
+        } else if (tipo === "tres bochas") {
+            for (let i = 0; i < 3; i++) {
+                let bocha3 = prompt(`Bochas ${i + 1}: `);
+                sabores.push(bocha3);
+            }
+        }
+        return sabores;
+    }
 
-	const resultado = esperar Terminal.leer()
+    precioHelado(tipo) {
+        if (tipo === "una bocha") {
+            console.log('Su precio es de: 200');
+        } else if (tipo === "dos bochas") {
+            console.log('Su precio es de: 400');
+        } else if (tipo === "tres bochas") {
+            console.log('Su precio es de: 600');
+        }
+    }
 
-	Terminal.escribir({
-		Resultado: resultado,
-		Tipo: tipoDe resultado,
-	})
-
-	Terminal.escribir('Presiona ENTER para volver a iniciar')
-
-	esperar Terminal.leerEnter()
-
-	esperar inicio()
+    toString() {
+        return `Helado de ${this.sabores.join(', ')}`;
+    }
 }
 
-inicio()
+const tipos = ["una bocha", "dos bochas", "tres bochas"];
+const precios = ["200", "400", "600"];
+const sabores = ["chocolate", "frutilla", "vainilla"];
+
+const helados = new Helado(tipos, precios, sabores);
+
+helados.getDatos();
+const tipo = prompt("Ingrese cuantas bochas desea (una bocha/dos bochas/tres bochas): ");
+const saboresSeleccionados = helados.pedirHelado(tipo);
+const heladoSeleccionado = new Helado([tipo], [precios[tipos.indexOf(tipo)]], saboresSeleccionados);
+console.log(heladoSeleccionado.toString());
+helados.precioHelado(tipo);
